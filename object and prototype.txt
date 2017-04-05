@@ -1,0 +1,23 @@
+JavaScript Java,C#,C++ ve s. kimi obyekt-yonumlu programlasdirma dili deyil.Amma bu mentiqi qurmaq mumkundur. Bunun ucun her hansi bir variable teyin edib ona ixtiyari property ve methodslar elave etmek olar.Meselen:
+var person = {
+	name: "Senem",
+	surname: "Qenberova",
+	age: 18;
+}.
+Amma gorunduyu kimi her bir obyektin verilen melumatlarini bir-bir yazmaq menasiz code tekrarindan basqa birsey deyil(hemcinin dinamik de deyil).Bunun ucun JSde constructorlardan istifade olunur.Meselen:
+function Person(ad,soyad,yas){
+	this.name = ad;
+	this.surname = soyad;
+	this.age = yas;
+	this.myFunction = function(){
+		return "Name: "+ this.name + " " + " Surname: "+ this.surname;
+	} 
+}
+Ve qurdugumuz constructoru artiq istediyimiz qeder cagira bilerik.Yeni obyekt yaradarken "new" keywordunden istifade edirik.(var person1 = new Person("senem","qenberova",18)).Yaratdigimiz obyektlerin properties ve ya methodlarini cagirmaq mumkundur(person1.name, person1.myFunction() ve s.)Yaratdigimiz obyektin heqiqeten constructorun obyekti olub olmadigini gostermek ucun "object instanceof constructor"-dan istifade olunur.Verdiyimiz exampleda "person1 instanceof Person" yazdirdigimizda "true" value-sini bize qaytaracaq.
+Burada yazilan this yaradilan obyektin Persondaki codelara sahib oldugunu gosterir.Yeni this yaradilan obyektin ozune beraberdir.
+Yaratdigimiz obyekte yeni bir ozellik qazandirmaq istedikde bunu 2 sekilde etmek mumkundur: ya obyektin ozune hemin ozellik elave edilir, ya da onun parentine.
+1-ci hal: person1.siblingName = "ferid".
+2-ci hal: Parenti dedikde yaratdigimiz constructor nezerde tutulur(inheritance mentiqi kimi basa dusule biler).Constructora yeni bir ozellik ise "prototype" ile elave edile biler. Bu zaman yaradilmis muvafiq obyektlere hemin ozellik elave olunacaq(birinci halda ise yalniz yaratdigimiz obyekte add olundu, digerlerine yox). Meselen:
+Person.prorotype.currentYear = "2017". Bu zaman elave edilen properity verilen prototypeden sonra gelen butun obyektlere samil olunacaq.
+Edilen additionlar yalniz bizim yaratdigimiz constructorlara deyil, hemcinin Array,Date,Function ve s. diger obyektlere de elave oluna biler(hansinin ki core codenu tapib duzelis etmek qeyri-mumkun meseledir).
+Bes prototypelere bize ne ucun lazimdir? Bele ki, muxtelif proyektlerde yaradilmis obyektler uzerinde isleyerken ona edilecek elaveler birbasa (basqasi terefinden yazilan) constructora elave edilmemeli ola biler. Bele zamanlarda sonradan elaveler mehz prototypeler vasitesile edilir. Ve ya edilen deyisikliklerin butun obyektlere deyi, mueyyen bir qisme aid edilmesi istenilerse, bu kimi veziyyetlerde de prototypeden istifade olunmasi mumkundur.
